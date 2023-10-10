@@ -10,8 +10,9 @@ export const getProducts = async () => {
         const response = await axios.get(`${PRODUCT_API_BASE_URL}/products/all`);
         return response.data;
     } catch (error) {
-        throw error;
-    }
+        alert(error.response.data.message);
+        return null;
+        }
 };
 
 export const getPrice = async (productId, quantity) => {
@@ -19,7 +20,8 @@ export const getPrice = async (productId, quantity) => {
         const response = await axios.get(`${PRODUCT_API_BASE_URL}/products/${productId}/quantity/${quantity}`);
         return response.data;
     } catch (error) {
-        throw error;
+        alert(error.response.data.message);
+        return null;
     }
 };
 
@@ -29,11 +31,13 @@ export const submitOrder = async (orderData) => {
             userId: '123123',
             shippingAddress: 'MUMBAI',
             billingAddress: 'BANGLORE',
-            product: orderData
+            products: orderData
         }
         const response = await axios.post(`${ORDER_API_BASE_URL}/add`, orderRequest);
+        alert('Submitted order successfully')
         return response.data;
     } catch (error) {
-        throw error;
-    }
+        alert(error.response.data.message);
+        return null;
+        }
 };

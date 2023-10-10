@@ -12,7 +12,7 @@ function ProductGrid() {
         async function fetchProducts() {
             try {
                 const productList = await getProducts();
-                setProducts(productList);
+                if(productList)setProducts(productList);
             } catch (error) {
                 console.error('Error fetching products:', error);
             }
@@ -24,6 +24,7 @@ function ProductGrid() {
     }
     const handleGetPrice = async (productId, quantity) => {
         const price = await getPrice(productId, quantity);
+        if(!price){return;}
         setCartProducts((prevProducts) => {
             const prodIndex = prevProducts.findIndex((prod) => prod.productId === productId);
             const updatedItems = [...prevProducts];
